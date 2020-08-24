@@ -1,8 +1,8 @@
 {
-    "name": "yiisoft/yii2-app-advanced",
-    "description": "Yii 2 Advanced Project Template",
-    "keywords": ["yii2", "framework", "advanced", "project template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "taoyu/loveswapsy",
+    "description": "LoveSwapsy is a gift card sale platform.",
+    "keywords": ["loveswapsy", "gift card"],
+    "homepage": "http://loveswapsy.com/",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
