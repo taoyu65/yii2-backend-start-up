@@ -89,6 +89,7 @@ class SiteController extends Controller
 
     public function actionError()
     {
+
         return "<h1>404. Something went wrong.</h1>";
     }
 
