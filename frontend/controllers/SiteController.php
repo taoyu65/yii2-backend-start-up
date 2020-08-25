@@ -30,10 +30,12 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => [
+                            'error',
+                        ],
                         'allow' => true,
-                        'roles' => ['?'],
-                    ],
+                        'roles' => ['@'],
+                    ]
                 ],
             ],
             'verbs' => [
@@ -83,6 +85,11 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    public function actionError()
+    {
+        return "<h1>404. Something went wrong.</h1>";
     }
 
     /**
