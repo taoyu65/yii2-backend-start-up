@@ -35,4 +35,9 @@ class DefaultController extends Controller
     {
         return json_encode(['status' => true, 'swapsy-message' => 'yes,good2tt2']);
     }
+
+    public function actionText()
+    {
+        return json_encode(['status' => true, 'swapsy-message' => 'success. test message']);
+    }
 }

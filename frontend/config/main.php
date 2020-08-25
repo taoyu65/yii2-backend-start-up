@@ -52,6 +52,11 @@ return [
             ),
         ],
     ],
+    'modules' => [
+        'v1' => [
+            'class' => 'api\modules\v1\Module',
+        ],
+    ],
     'params' => $params,
 ];
 

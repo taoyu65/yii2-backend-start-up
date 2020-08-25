@@ -16,7 +16,7 @@ $config = [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
-            'cookieValidationKey' => '4JxHr4ADtF-bgLRuCd3IBt1PUdPx0eyu',
+            'cookieValidationKey' => '4JxHr4ADtF-bgLRuCd3IBt1PUdPx0eSa',
             'csrfParam' => '_apiCSRF',
         ],
         'log' => [
@@ -33,15 +33,26 @@ $config = [
 //            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => ['prime-chat'],
+//                    'except' => ['get'],
+//                    'tokens' => [
+//                        '{id}' => '<id:\\w+>'
+//                    ],
+//                    'extraPatterns' => [
+//                        'POST prime-chat' => 'prime-chat/send',
+//                    ]
+//                ],
                 '<controller:[\w|\-]+>/<action:[\w|\-]+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:[\w|\-]+>/<action:[\w|\-]+>' => '<controller>/<action>',
             ],
         ],
-//        'user' => [
-//            'class' => 'common\components\User',
-//            'identityClass' => 'common\models\User',
-//            'enableAutoLogin' => false,
-//        ],
+        'user' => [
+            'class' => 'common\components\User',
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => false,
+        ],
     ],
     'modules' => [
         'v1' => [
