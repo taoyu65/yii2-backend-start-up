@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name'=>'',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -16,13 +17,18 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
+            'class' => 'yii\web\User',
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'loginUrl' => ['account/login'],
+            'on afterLogin' => ['frontend\events\AfterLoginEvent', 'handleNewUser'],
+            'enableAutoLogin' => false,
+            'autoRenewCookie' => false,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'authTimeout' => 60 * 60,
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'name' => 'SessionSwapsyFrontend',
+            'timeout' => 60 * 60,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,14 +42,58 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'class' => 'yii\web\UrlManager',
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'rules' => array_merge(
+                require(__DIR__.'/url_rules.php')
+            ),
         ],
-        */
     ],
     'params' => $params,
 ];
+
+//
+//return [
+//    'id' => 'app-frontend',
+//    'basePath' => dirname(__DIR__),
+//    'bootstrap' => ['log'],
+//    'controllerNamespace' => 'frontend\controllers',
+//    'components' => [
+//        'request' => [
+//            'csrfParam' => '_csrf-frontend',
+//        ],
+//        'user' => [
+//            'identityClass' => 'common\models\User',
+//            'enableAutoLogin' => true,
+//            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+//        ],
+//        'session' => [
+//            // this is the name of the session cookie used for login on the frontend
+//            'name' => 'advanced-frontend',
+//        ],
+//        'log' => [
+//            'traceLevel' => YII_DEBUG ? 3 : 0,
+//            'targets' => [
+//                [
+//                    'class' => 'yii\log\FileTarget',
+//                    'levels' => ['error', 'warning'],
+//                ],
+//            ],
+//        ],
+//        'errorHandler' => [
+//            'errorAction' => 'site/error',
+//        ],
+//        /*
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//            ],
+//        ],
+//        */
+//    ],
+//    'params' => $params,
+//];
