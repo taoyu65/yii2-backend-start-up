@@ -33,6 +33,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return json_encode(['status' => true, 'swapsy-message' => 'yes,good22']);
+        return json_encode(['status' => true, 'swapsy-message' => 'yes,good2tt2']);
     }
 }

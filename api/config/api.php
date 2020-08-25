@@ -16,7 +16,7 @@ $config = [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
-            'cookieValidationKey' => '4JxHr4ADtF-bgLRuCd3IBt1PUdPx0eSa',
+            'cookieValidationKey' => '4JxHr4ADtF-bgLRuCd3IBt1PUdPx0eyu',
             'csrfParam' => '_apiCSRF',
         ],
         'log' => [
@@ -37,11 +37,11 @@ $config = [
                 '<controller:[\w|\-]+>/<action:[\w|\-]+>' => '<controller>/<action>',
             ],
         ],
-        'user' => [
-            'class' => 'common\components\User',
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => false,
-        ],
+//        'user' => [
+//            'class' => 'common\components\User',
+//            'identityClass' => 'common\models\User',
+//            'enableAutoLogin' => false,
+//        ],
     ],
     'modules' => [
         'v1' => [
