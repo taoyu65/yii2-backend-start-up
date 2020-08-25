@@ -16,13 +16,13 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'class' => 'yii\web\User',
-            'identityClass' => 'common\models\User',
+            'class' => 'backend\components\Administrator',
+            'identityClass' => 'common\models\Administrator',
             'enableAutoLogin' => true,
+            'autoRenewCookie' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the backend
             'name' => 'loveswapsy-backend-session',
         ],
         'log' => [
@@ -43,9 +43,12 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'rules' => array_merge(
-                require(__DIR__.'/url_rules.php')
+                require(__DIR__ . '/url_rules.php')
             ),
         ],
+//        'assetManager' => [
+//            'linkAssets' => true,
+//        ],
     ],
     'params' => $params,
 ];

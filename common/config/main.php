@@ -18,5 +18,8 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => '\backend\components\rbac\DbManager',
+        ],
     ],
 ];
