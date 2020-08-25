@@ -19,8 +19,8 @@ return [
         'user' => [
             'class' => 'yii\web\User',
             'identityClass' => 'common\models\User',
-            'loginUrl' => ['account/login'],
-            'on afterLogin' => ['frontend\events\AfterLoginEvent', 'handleNewUser'],
+//            'loginUrl' => ['account/login'],
+//            'on afterLogin' => ['frontend\events\AfterLoginEvent', 'handleNewUser'],
             'enableAutoLogin' => false,
             'autoRenewCookie' => false,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
