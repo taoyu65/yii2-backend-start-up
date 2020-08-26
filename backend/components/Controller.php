@@ -14,6 +14,8 @@ class Controller extends Yii_Controller
     public $currentPage = 1;
 
     public $useSideBarLayout = true;
+    public $firstName = 'Tao';
+    public $lastName = 'Yu';
 
     /**
      * @param $action
@@ -42,23 +44,53 @@ class Controller extends Yii_Controller
             $this->_saveToLog($permission);
         }
 
+        $this->_loadMenus();
+
         $this->_getCurrentPage();
+
+        $this->_getAminName();
 
         return parent::beforeAction($action);
     }
 
-    public function getShowMenuMap()
+    private function _loadMenus()
     {
-        $re = [];
-        $userId = Yii::$app->user->id;
-        $auth = Yii::$app->authManager;
-        $permissions = $auth->getPermissionsByUser($userId);
-        foreach ($permissions as $permissionName => $permission) {
-            $controller = $permission->description;
-            $re[$controller] = true;
-        }
+        $_showMap = $this->_getShowMenuMap();
+        return [
+            [
+                'label' => 'Dashboard',
+                'url' => '#',
+                'visible' => $this->_isShowParentMenu(['first', 'second'], $_showMap),
+                'active' => true,
+                'child' => [
+                    [
+                        'label' => 'First',
+                        'url' => '/first',
+                        'active' => false,
+                        'visible' => $this->_isShowMenu('first', $_showMap),
+                    ],
+                    [
+                        'label' => 'Second',
+                        'url' => '/second',
+                        'active' => true,
+                        'visible' => $this->_isShowMenu('second', $_showMap),
+                    ],
+                ],
+            ],
+            [
+                'label' => 'Permission',
+                'url' => '/permission',
+                'visible' => $this->_isShowMenu('', $_showMap),
+                'active' => false,
+                'child' => [],
+            ],
+        ];
+    }
 
-        return $re;
+    private function _getAminName()
+    {
+        $this->firstName = Yii::$app->user->identity->first_name;
+        $this->lastName = Yii::$app->user->identity->last_name;
     }
 
     /**
@@ -112,5 +144,44 @@ class Controller extends Yii_Controller
             $index = isset($arr[1]) ? $arr[1] : '';
             AdministratorOperationLog::createLog($adminId, $action, $index, $loggedUserId);
         }
+    }
+
+    private function _getShowMenuMap()
+    {
+        $re = [];
+        $userId = Yii::$app->user->id;
+        $auth = Yii::$app->authManager;
+        $permissions = $auth->getPermissionsByUser($userId);
+        foreach ($permissions as $permissionName => $permission) {
+            $controller = $permission->description;
+            $re[$controller] = true;
+        }
+
+        return $re;
+    }
+
+    /**
+     * @param $menu
+     * @param array $showMenuMap
+     * @return bool
+     */
+    private function _isShowMenu($menu, $showMenuMap)
+    {
+        if (isset($showMenuMap[$menu])) {
+            return $showMenuMap[$menu];
+        }
+
+        return false;
+    }
+
+    private function _isShowParentMenu($arr, $showMenuMap)
+    {
+        foreach ($arr as $item) {
+            if ($this->_isShowMenu($item, $showMenuMap)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

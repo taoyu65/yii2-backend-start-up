@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\Dealer;
 use common\queries\AdministratorLoginHistoryQuery;
 use common\queries\AdministratorQuery;
 use Exception;
@@ -233,30 +232,5 @@ class Administrator extends ActiveRecord implements IdentityInterface
     public function isAdmin()
     {
         return in_array($this->id, self::adminIds());
-    }
-
-    /**
-     * @param $menu
-     * @param array $showMenuMap
-     * @return bool
-     */
-    public function isShowMenu($menu, $showMenuMap)
-    {
-        if (isset($showMenuMap[$menu])) {
-            return $showMenuMap[$menu];
-        }
-
-        return false;
-    }
-
-    public function isShowParentMenu($arr, $showMenuMap)
-    {
-        foreach ($arr as $item) {
-            if ($this->isShowMenu($item, $showMenuMap)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

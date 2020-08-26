@@ -7,6 +7,7 @@ $params = array_merge(
 );
 
 return [
+    'name' => 'LoveSwapsy',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',

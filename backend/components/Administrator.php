@@ -8,9 +8,7 @@ use yii\web\IdentityInterface;
 use yii\web\User;
 
 /**
- * @inheritdoc
- *
- * @property \common\models\Administrator | IdentityInterface | null    $identity The identity object associated with the currently logged-in user. null is returned if the user is not logged in (not authenticated).
+ * @property \common\models\Administrator $identity The identity object associated with the currently logged-in user. null is returned if the user is not logged in (not authenticated).
  */
 class Administrator extends User
 {
