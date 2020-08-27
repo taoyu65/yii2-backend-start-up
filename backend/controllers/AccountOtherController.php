@@ -30,6 +30,6 @@ class AccountOtherController extends Controller
      */
     public function actionSetting()
     {
-        return $this->redirect(['administrator/view', 'id'=>Yii::$app->user->id]);
+        return $this->redirect(['administrator/view', 'id' => Yii::$app->user->id]);
     }
 }

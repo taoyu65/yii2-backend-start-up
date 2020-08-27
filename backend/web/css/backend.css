@@ -1,0 +1,15 @@
+/*!* permission *!*/
+.permission .custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #28a745;
+    background-color: #28a745;
+}
+.permission-group {
+    font-size: large;
+    font-weight: bold;
+}
+.sl-cl {
+    font-weight: normal;
+    font-size: small;
+    text-decoration: underline;
+}

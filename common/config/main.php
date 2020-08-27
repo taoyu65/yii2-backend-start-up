@@ -6,8 +6,8 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'urlManagerFrontend' => [
-            'baseUrl' => 'http://' . (YII_ENV_PROD ? '' : ''),
+        'urlManager' => [
+            'baseUrl' => YII_ENV_PROD ? 'https://loveswapsy.com' : 'http://localhost:5556',
             'class' => 'yii\web\UrlManager',
             'enableStrictParsing' => false,
             'enablePrettyUrl' => true,

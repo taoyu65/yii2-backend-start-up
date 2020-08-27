@@ -1,6 +1,7 @@
 <?php
 namespace backend\components;
 
+use common\components\traits\ReturnJsonTrait;
 use common\models\AdministratorAuthItem;
 use common\models\AdministratorOperationLog;
 use Exception;
@@ -10,6 +11,8 @@ use yii\web\Controller as Yii_Controller;
 
 class Controller extends Yii_Controller
 {
+    use ReturnJsonTrait;
+
     public $layout = 'main';
     public $currentPage = 1;
 
@@ -44,8 +47,6 @@ class Controller extends Yii_Controller
             $this->_saveToLog($permission);
         }
 
-        $this->_loadMenus();
-
         $this->_getCurrentPage();
 
         $this->_getAminName();
@@ -53,26 +54,27 @@ class Controller extends Yii_Controller
         return parent::beforeAction($action);
     }
 
-    private function _loadMenus()
+    public function loadMenus()
     {
         $_showMap = $this->_getShowMenuMap();
         return [
             [
                 'label' => 'Dashboard',
-                'url' => '#',
                 'visible' => $this->_isShowParentMenu(['first', 'second'], $_showMap),
-                'active' => true,
+                'active' => $this->_isParentActive(['dashboard']),
+                'lead' => 'fa fa-tachometer-alt',
+                'tail' => '<span class="badge badge-pill badge-success">Pro</span>',
                 'child' => [
                     [
                         'label' => 'First',
                         'url' => '/first',
-                        'active' => false,
+                        'active' => $this->_isParentActive(['first']),
                         'visible' => $this->_isShowMenu('first', $_showMap),
                     ],
                     [
                         'label' => 'Second',
                         'url' => '/second',
-                        'active' => true,
+                        'active' => $this->_isParentActive(['second']),
                         'visible' => $this->_isShowMenu('second', $_showMap),
                     ],
                 ],
@@ -80,11 +82,21 @@ class Controller extends Yii_Controller
             [
                 'label' => 'Permission',
                 'url' => '/permission',
+                'lead' => 'fa fa-gem',
                 'visible' => $this->_isShowMenu('', $_showMap),
-                'active' => false,
+                'active' => $this->_isParentActive(['permission']),
                 'child' => [],
             ],
         ];
+    }
+
+    private function _isParentActive(array $controllerArr, array $actionArr = null)
+    {
+        if ($actionArr) {
+            return in_array(Yii::$app->controller->id, $controllerArr) && in_array(Yii::$app->controller->action->id, $actionArr);
+        }
+
+        return in_array(Yii::$app->controller->id, $controllerArr);
     }
 
     private function _getAminName()

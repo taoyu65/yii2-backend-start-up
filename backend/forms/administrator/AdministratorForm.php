@@ -3,6 +3,7 @@ namespace backend\forms\administrator;
 
 use common\models\Administrator;
 use yii\base\Model;
+use Exception;
 
 class AdministratorForm extends Model
 {
@@ -96,11 +97,11 @@ class AdministratorForm extends Model
 
     /**
      * @return boolean
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public function update()
     {
-        if ( ! $this->validate()) {
+        if (!$this->validate()) {
             return false;
         }
 

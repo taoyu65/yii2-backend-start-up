@@ -78,7 +78,7 @@ class Administrator extends ActiveRecord implements IdentityInterface
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
+            'password_hash' => 'Password',
             'email' => 'Email',
             'email_verified' => 'Email Verified',
             'role' => 'Role',
@@ -92,13 +92,31 @@ class Administrator extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @param bool $insert
+     * @return bool
+     * @throws Exception
+     */
+    public function beforeSave($insert)
+    {
+        if (!$insert) {
+            if ($this->password_hash === '') {
+                $this->password_hash = $this->oldAttributes['password_hash'];
+            } else {
+                $this->setPassword($this->password_hash);
+            }
+        }
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
      * Gets query for [[AdministratorLoginHistories]].
      *
      * @return ActiveQuery|AdministratorLoginHistoryQuery
      */
     public function getAdministratorLoginHistories()
     {
-        return $this->hasMany(AdministratorLoginHistory::className(), ['administrator_id' => 'id']);
+        return $this->hasMany(AdministratorLoginHistory::class, ['administrator_id' => 'id']);
     }
 
     /**

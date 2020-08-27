@@ -23,7 +23,7 @@ abstract class BaseApplication extends yii\base\Application
 
 /**
  * @property backend\components\Administrator $user read-only.
- * @property yii\web\UrlManager $urlManagerFrontend This property is read-only.
+ * @property yii\web\UrlManager $urlManager This property is read-only.
  * @property \frontend\components\Controller | \backend\components\Controller $controller read-only.
  * @property \backend\components\rbac\DbManager $backendAuthManager read-only.
  */
